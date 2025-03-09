@@ -1,16 +1,16 @@
 locals {
-  ami_id = "ami-03fd334507439f4d1" # Free tier eligible Ubuntu Server 24.04 LTS
-  instance_type = "t2.micro"
+  ami_id               = "ami-03fd334507439f4d1" # Free tier eligible Ubuntu Server 24.04 LTS
+  instance_type        = "t2.micro"
   instance_name_prefix = "devops-homework-3-server"
-  volume_size = 8
-  volume_type = "gp3"
+  volume_size          = 8
+  volume_type          = "gp3"
 }
 
 resource "aws_instance" "server" {
-  count = local.server_amount
-  ami = local.ami_id
+  count         = local.server_amount
+  ami           = local.ami_id
   instance_type = local.instance_type
-  key_name = aws_key_pair.root_aws_keypair.key_name # Root keypair - used to add other public keys to the server
+  key_name      = aws_key_pair.root_aws_keypair.key_name # Root keypair - used to add other public keys to the server
   vpc_security_group_ids = [
     aws_security_group.server_security_group.id
   ]
@@ -32,10 +32,10 @@ resource "aws_instance" "server" {
     ]
 
     connection {
-      type = "ssh"
-      host = self.public_dns
-      port = 22
-      user = "ubuntu"
+      type        = "ssh"
+      host        = self.public_dns
+      port        = 22
+      user        = "ubuntu"
       private_key = tls_private_key.root_generated_keypair.private_key_pem
     }
   }

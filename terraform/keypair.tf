@@ -5,10 +5,10 @@ resource "tls_private_key" "root_generated_keypair" {
 
 # Save private key to local machine
 resource "local_sensitive_file" "root_private_key_file" {
-  filename = "../keys/private/devops-homework-3-root-keypair.pem"
-  file_permission = "600"
+  filename             = "../keys/private/devops-homework-3-root-keypair.pem"
+  file_permission      = "600"
   directory_permission = "700"
-  content = tls_private_key.root_generated_keypair.private_key_pem
+  content              = tls_private_key.root_generated_keypair.private_key_pem
 }
 
 resource "aws_key_pair" "root_aws_keypair" {
